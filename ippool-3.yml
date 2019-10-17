@@ -1,7 +1,9 @@
-- hosts: windows-server
+- name: Run powershell script
+  hosts: all 
+  gather_facts: false
   tasks:
-  - name: Run remote PowerShell Script
-      win_shell: powershell.exe 'c:\ps\1.ps1'
+    - name: Run powershell script
+      script: 'c:\ps\1.ps1'
        # $IPPool = Get-SCStaticIPAddressPool –name "Test-CF-IPPool"
        # Get-SCIPAddress –StaticIPAddressPool $IPPool
        #Get VM
