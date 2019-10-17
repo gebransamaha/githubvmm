@@ -1,24 +1,16 @@
 - hosts: windows-server
   tasks:
   - name: Run remote PowerShell Script
-       win_shell:
+      - win_shell: |
        #powershell.exe -ExecutionPolicy ByPass -File C:/ps/1.ps1
        $IPPool = Get-SCStaticIPAddressPool –name "Test-CF-IPPool"
        Get-SCIPAddress –StaticIPAddressPool $IPPool
-
-
-
        #Get VM
        $vm=Get-SCVirtualMachine -Name "abc"
- 
        #Get static pool which you are going to use with that VM (here I'm filtering pool by address range)
        $pool=Get-SCStaticIPAddressPool|? {$_.Name -eq "Test-CF-IPPool"}
- 
        #Grant changes
        Grant-SCIPAddress -GrantToObjectType "VirtualNetworkAdapter" -GrantToObjectID $vm.VirtualNetworkAdapters[0].ID -StaticIPAddressPool $pool
- 
        #Update network adapter settings
-
        $ipAddress = Grant-SCIPAddress -GrantToObjectType “VirtualNetworkAdapter” -GrantToObjectID $vm.VirtualNetworkAdapters[0].ID -StaticIPAddressPool $pool
-
        Set-SCVirtualNetworkAdapter -VirtualNetworkAdapter $vm.VirtualNetworkAdapters[0] -IPv4AddressType static -IPv4Addresses $ipAddress
