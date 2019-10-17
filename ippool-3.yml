@@ -1,7 +1,7 @@
 - hosts: windows-server
   tasks:
   - name: Run remote PowerShell Script
-       win_shell |
+       win_shell:
        #powershell.exe -ExecutionPolicy ByPass -File C:/ps/1.ps1
        $IPPool = Get-SCStaticIPAddressPool –name "Test-CF-IPPool"
        Get-SCIPAddress –StaticIPAddressPool $IPPool
