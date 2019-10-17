@@ -1,7 +1,4 @@
-
--name: Hello World Sample
-    hosts: all
-    tasks:
-
-    -name: Run remote PowerShell Script
-        win_command: powershell.exe -ExecutionPolicy ByPass -File C:/ps/1.ps1
+- hosts: windows-server
+  tasks:
+  - name: Run remote PowerShell Script
+       win_command: powershell.exe -ExecutionPolicy ByPass -File C:/ps/1.ps1
